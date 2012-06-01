@@ -8,11 +8,12 @@
 
 		.fuel {
 			color: #C33;
+			font-size:100px;
 		}
 
 		.note {
 			margin-top: 10px;
-			color: #EEE;
+			color: #dd;
 		}
 	</style>
 </head>
@@ -22,7 +23,7 @@
 	$access_token = 'f3010061e36ba14faedc9a3912a53162';
 	//$device_id = 'e5fccd81-4fcc-42c1-9122-51cd5e4358e6';
 	$device_id = '3bcc52ce-d277-4ef3-b06f-4d4d832330a4';
-	$date_string = date("dmy");
+	$date_string = @date("dmy");
 	$url = 'https://api.nike.com/v1.0/me/activities/summary/' . $date_string . '?deviceId=' . $device_id . '&access_token=' . $access_token . '&endDate=' . $date_string . '&fidelity=96';
 
 	// Initializing curl
@@ -45,14 +46,17 @@
 	// Parse json
 	$json_data = json_decode($result);
 	echo 'Francis\'s daily total fuel up to ';
-	echo date("F.j.Y, g:i:s a");
-	echo ' is ';
-	echo '<span class="fuel">' . $json_data->daily[0]->summary->totalFuel . '</span>';
+	echo @date("F.j.Y, g:i:s a");
+	echo ' is<br>';
+	echo '<span class="fuel">' . $json_data->daily[0]->summary->totalFuel . ' / </span>';
+	echo '<span class="fuel">' . $json_data->daily[0]->summary->lastKnownDailyGoal . '</span>';
 	echo '.';
 
+/*
 	echo '<div class="note">';
 	echo $result;
 	echo '</div>';
+*/
 	?>
 </body>
 </html>
